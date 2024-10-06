@@ -13,7 +13,7 @@ describe('TodoListPage', () => {
   beforeEach(() => {
     spyStubTodoListRepository = {
       getTodos: vi.fn().mockResolvedValue([]),
-      saveTodo: vi.fn().mockResolvedValue([])
+      saveTodo: vi.fn().mockResolvedValue([]),
     }
   })
 
@@ -23,7 +23,7 @@ describe('TodoListPage', () => {
 
   test('初期レンダリング時にTodoListRepositoryのgetTodosを呼ぶ', async () => {
     await act(async () => {
-      render(<TodoListPage todoListRepository={spyStubTodoListRepository}/>)
+      render(<TodoListPage todoListRepository={spyStubTodoListRepository} />)
     })
 
     expect(spyStubTodoListRepository.getTodos).toHaveBeenCalled()
@@ -36,7 +36,7 @@ describe('TodoListPage', () => {
     ])
 
     await act(async () => {
-      render(<TodoListPage todoListRepository={spyStubTodoListRepository}/>)
+      render(<TodoListPage todoListRepository={spyStubTodoListRepository} />)
     })
 
     expect(screen.getByText('hoge')).toBeInTheDocument()
@@ -49,7 +49,7 @@ describe('TodoListPage', () => {
       { id: '456', title: 'fuga' },
     ])
     await act(async () => {
-      render(<TodoListPage todoListRepository={spyStubTodoListRepository}/>)
+      render(<TodoListPage todoListRepository={spyStubTodoListRepository} />)
     })
 
     await userEvent.type(screen.getByRole('textbox'), 'fuga')
@@ -58,6 +58,18 @@ describe('TodoListPage', () => {
     expect(spyStubTodoListRepository.saveTodo).toHaveBeenCalledWith('fuga')
     expect(screen.getByText('hoge'))
     expect(screen.getByText('fuga'))
+  })
+
+  test('todoを保存したらtextInputを空にする', async () => {
+    await act(async () => {
+      render(<TodoListPage todoListRepository={spyStubTodoListRepository} />)
+    })
+
+    await userEvent.type(screen.getByRole('textbox'), 'foo')
+    await userEvent.click(screen.getByRole('button', { name: 'Save' }))
+
+    const textbox = screen.getByRole('textbox') as HTMLInputElement
+    expect(textbox.value).toEqual('')
   })
 
 })

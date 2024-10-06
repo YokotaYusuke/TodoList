@@ -24,6 +24,7 @@ export default function TodoListPage(
   const saveButtonClick = async () => {
     const todos = await props.todoListRepository.saveTodo(draftTodo)
     setTodoLists(todos)
+    setDraftTodo('')
   }
 
   const textInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
