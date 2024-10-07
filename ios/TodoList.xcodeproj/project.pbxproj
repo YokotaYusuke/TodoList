@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		813755012CB2AD2400AED7E0 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 813755002CB2AD2400AED7E0 /* Nimble */; };
+		813755042CB2AD3800AED7E0 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 813755032CB2AD3800AED7E0 /* ViewInspector */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		81D074A92CB0045A00466D6C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,16 +26,6 @@
 		81D074A82CB0045A00466D6C /* TodoListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		81D074CA2CB0056F00466D6C /* Exceptions for "TodoTests" folder in "TodoList" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				TodoListTests.swift,
-			);
-			target = 81D074972CB0045900466D6C /* TodoList */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		81D0749A2CB0045900466D6C /* TodoList */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -39,9 +34,6 @@
 		};
 		81D074AB2CB0045A00466D6C /* TodoTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				81D074CA2CB0056F00466D6C /* Exceptions for "TodoTests" folder in "TodoList" target */,
-			);
 			path = TodoTests;
 			sourceTree = "<group>";
 		};
@@ -59,6 +51,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				813755012CB2AD2400AED7E0 /* Nimble in Frameworks */,
+				813755042CB2AD3800AED7E0 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +120,8 @@
 			);
 			name = TodoListTests;
 			packageProductDependencies = (
+				813755002CB2AD2400AED7E0 /* Nimble */,
+				813755032CB2AD3800AED7E0 /* ViewInspector */,
 			);
 			productName = iosTests;
 			productReference = 81D074A82CB0045A00466D6C /* TodoListTests.xctest */;
@@ -159,6 +155,10 @@
 			);
 			mainGroup = 81D0748F2CB0045900466D6C;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				813754FF2CB2AD2400AED7E0 /* XCRemoteSwiftPackageReference "Nimble" */,
+				813755022CB2AD3800AED7E0 /* XCRemoteSwiftPackageReference "ViewInspector" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 81D074992CB0045900466D6C /* Products */;
 			projectDirPath = "";
@@ -459,6 +459,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		813754FF2CB2AD2400AED7E0 /* XCRemoteSwiftPackageReference "Nimble" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:Quick/Nimble.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		813755022CB2AD3800AED7E0 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		813755002CB2AD2400AED7E0 /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 813754FF2CB2AD2400AED7E0 /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
+		};
+		813755032CB2AD3800AED7E0 /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 813755022CB2AD3800AED7E0 /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 81D074902CB0045900466D6C /* Project object */;
 }
