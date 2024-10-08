@@ -1,12 +1,30 @@
 import SwiftUI
 
 struct TodoListView: View {
-    @StateObject var viewModel: ViewModel
+    @ObservedObject var viewModel: ViewModel
     let inspection = Inspection<Self>()
     
     var body: some View {
         VStack {
-            Text("TodoList")
+            VStack {
+                Text("TodoList")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding()
+                HStack {
+                    TextField("todoを入力", text: $viewModel.draftTodo)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    Button {
+                        Task {
+                            await viewModel.clickSaveButton()
+                        }
+                    } label: {
+                        Text("save")
+                    }
+                    .padding(.trailing, 20)
+                }
+            }
             List(viewModel.todos) { todo in
                 Text(todo.title)
             }
@@ -19,25 +37,46 @@ struct TodoListView: View {
 extension TodoListView {
     class ViewModel: ObservableObject {
         @Published var todos = [TodoList]()
+        @Published var draftTodo = ""
         private var todoListRepository: TodoListRepository
         
-        init(todoListReposiotry: TodoListRepository = DefaultTodoListRepository()) {
-            self.todoListRepository = todoListReposiotry
+        init(todoListRepository: TodoListRepository = DefaultTodoListRepository()) {
+            self.todoListRepository = todoListRepository
             
             Task {
-                do {
-                    let todos = try await todoListReposiotry.getTodos()
-                    DispatchQueue.main.async {
-                        self.todos = todos
-                    }
-                } catch {
-                    print("todosの取得に失敗しました")
-                }
+                await getTodos()
             }
         }
+        
+        func getTodos() async {
+            do {
+                let todos = try await todoListRepository.getTodos()
+                DispatchQueue.main.async {
+                    self.todos = todos
+                }
+            } catch {
+                print("todosの取得に失敗しました")
+            }
+        }
+        
+        func clickSaveButton() async {
+            do {
+                let todos = try await todoListRepository.saveTodo(title: draftTodo)
+                DispatchQueue.main.async {
+                    self.todos = todos
+                }
+            } catch {
+                print("todoの保存に失敗しました")
+            }
+        }
+        
     }
 }
 
 #Preview {
-    TodoListView(viewModel: .init(todoListReposiotry: DefaultTodoListRepository()))
+    TodoListView(
+        viewModel: .init(
+            todoListRepository: DefaultTodoListRepository()
+        )
+    )
 }

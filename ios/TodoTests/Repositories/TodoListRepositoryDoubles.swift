@@ -7,6 +7,12 @@ class SpyTodoListRepository: TodoListRepository {
         return []
     }
     
+    var saveTodo_argument_title: String? = nil
+    func saveTodo(title: String) async throws -> [TodoList] {
+        saveTodo_argument_title = title
+        return []
+    }
+    
 }
 
 class StubTodoListRepository: TodoListRepository {
@@ -15,4 +21,20 @@ class StubTodoListRepository: TodoListRepository {
         return getTodos_returnValue
     }
     
+    var saveTodo_returnValue: [TodoList] = []
+    func saveTodo(title: String) async throws -> [TodoList] {
+        return saveTodo_returnValue
+    }
+
+}
+
+class DummyTodoListRepository: TodoListRepository {
+    func getTodos() async throws -> [TodoList] {
+        return []
+    }
+    
+    func saveTodo(title: String) async throws -> [TodoList] {
+        return []
+    }
+
 }
